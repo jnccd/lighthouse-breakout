@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="ProgramProj/src"/>
+	<classpathentry kind="src" path="image"/>
+	<classpathentry kind="lib" path="ProgramProj/lib/jetty-client-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="ProgramProj/lib/jetty-http-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="ProgramProj/lib/jetty-io-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="ProgramProj/lib/jetty-util-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="ProgramProj/lib/msgpack-core-0.8.14.jar"/>
+	<classpathentry kind="lib" path="ProgramProj/lib/websocket-api-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="ProgramProj/lib/websocket-client-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="ProgramProj/lib/websocket-common-9.4.8.v20171121.jar"/>
+	<classpathentry kind="output" path="ProgramProj/bin"/>
+</classpath>
