@@ -185,7 +185,7 @@ public class Model {
 					}
 				}
 		}
-
+		
 		levelState++;
 		if (levelState >= levelStates)
 			levelState = 0;
