@@ -35,8 +35,9 @@ public class Particle {
 		
 		//Vector2 toOrigin = origin.Subtract(pos);
 		//vel = vel.Add(new Vector2(toOrigin.Y, -toOrigin.X / 2).Divide(50 * toOrigin.LengthSquared()));
+		vel.Y += 0.01f;
 		
-		vel.Multiply(0.95f);
+		vel = vel.Multiply(0.999f);
 		pos = pos.Add(vel);
 		
 		if (lifeTimer > lifeTime)

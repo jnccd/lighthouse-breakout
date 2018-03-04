@@ -5,8 +5,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 
 import javax.imageio.ImageIO;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 public class Model {
 	Breakout parent;
@@ -25,7 +29,7 @@ public class Model {
 	private final int gameOverAnimationTime;
 	private int gameWonTime = 0;
 	private final int gameWonAnimationTime;
-
+	
 	private ScreenGameWon winScreen;
 	private ScreenGameOver gameOverScreen;
 	
@@ -33,6 +37,7 @@ public class Model {
 	ArrayList<Brick> bricks = new ArrayList<Brick>();
 	ArrayList<Brick> removeList = new ArrayList<Brick>();
 	float ballSpeedMult = 0.4f;
+	float ballStartSpeed = 0.5f;
 	
 	ArrayList<BufferedImage> lvl = new ArrayList<BufferedImage>();
 	BufferedImage game_over = null;
@@ -48,20 +53,30 @@ public class Model {
 		try {
 			game_over = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gameover.bmp"));
 			game_won = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gamewon.bmp"));
-			
-			int index = 1;
-			while (true)
-			{
-				String s = "lvl" + String.valueOf(index) + ".bmp";
-				lvl.add(ImageIO.read(getClass().getClassLoader().getResourceAsStream("lvl" + String.valueOf(index) + ".bmp")));
-				index++;
-			}
-			
 		} catch (Exception e) {
 			System.out.println("Levels loaded from files: " + String.valueOf(lvl.size()));
 		}
 		
-		particles = new ParticleManager(parent.picture, 2);
+		int index = 1;
+		while (true)
+		{
+			try {
+				String filename = "lvl" + String.valueOf(index) + ".bmp";
+				lvl.add(ImageIO.read(getClass().getClassLoader().getResourceAsStream(filename)));
+				index++;
+			} catch (Exception e) {
+				try {
+					String filename = "lvl" + String.valueOf(index) + ".png";
+					lvl.add(ImageIO.read(getClass().getClassLoader().getResourceAsStream(filename)));
+					index++;
+				} catch (Exception ex) {
+					break;
+				}
+			}
+		}
+		System.out.println("Levels loaded from files: " + String.valueOf(lvl.size()));
+		
+		particles = new ParticleManager(parent.picture, 3);
 		levelStates = lvl.size() + 1;
 	}
 	
@@ -75,7 +90,7 @@ public class Model {
 			parent.m.bricks.removeAll(removeList);
 			
 			gameTime++;
-			ballSpeedMult = 0.4f + gameTime / parent.desieredFramerate / 75;
+			ballSpeedMult = 0.4f + gameTime / parent.desieredFramerate / 95;
 			
 			particles.update();
 			
@@ -113,7 +128,7 @@ public class Model {
 		gameWonTime = 0;
 		bAALLLLZ.clear();
 		bAALLLLZ.add(new Ball(new Vector2(Breakout.housePixelsX / 2, Breakout.housePixelsY - 2),
-				new Vector2(0, -0.3f), 1, Color.YELLOW, parent));
+				new Vector2(0, -ballStartSpeed), 1, Color.YELLOW, parent));
 		
 		bricks.clear();
 		if (levelState == 0)
@@ -156,14 +171,29 @@ public class Model {
 				for (int y = 0; y < 9; y++) {
 					c = new Color(lvl.get(levelState - 1).getRGB(x, y));
 					if (c.getRGB() != Color.WHITE.getRGB())
-						bricks.add(new Brick(x * Brick.width, y, Brick.colorToBrickHP(c), 
-								parent, Brick.colorToBrickBallSpawn(c)));
+					{
+						if (levelState == 1 && x == 6 && y == 5 || levelState == 1 && x == 1 && y == 7 || 
+								levelState == 2 && x == 2 && y == 3 || levelState == 2 && x == 3 && y == 3 || levelState == 2 && x == 4 && y == 3|| 
+								levelState == 3 && x == 2 && y == 3 || levelState == 3 && x == 4 && y == 3 ||
+								levelState == 4 && x == 1 && y == 2 ||
+								levelState == 6 && x == 3 && y == 1 || levelState == 6 && x == 4 && y == 1)
+							bricks.add(new Brick(x * Brick.width, y, Brick.colorToBrickHP(c), 
+									parent, true));
+						else
+							bricks.add(new Brick(x * Brick.width, y, Brick.colorToBrickHP(c), 
+									parent, Brick.colorToBrickBallSpawn(c)));
+					}
 				}
 		}
 
 		levelState++;
 		if (levelState >= levelStates)
 			levelState = 0;
+	}
+	public Ball getLowestBall()
+	{
+		return bAALLLLZ.stream().min(Comparator.comparing(Ball::getYPos)).
+				orElse(new Ball(new Vector2(1, 1), new Vector2(0, 0), 0, Color.WHITE, parent));
 	}
 	public void gameLost() {
 		gameTime = 0;
