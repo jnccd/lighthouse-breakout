@@ -74,9 +74,14 @@ public class SwingTemplate {
 		});
 		window.addKeyListener(new KeyAdapter() {
 			@Override
-		    public void keyTyped(KeyEvent e) {
+			public void keyPressed(KeyEvent e) {
 				control = e;
-		    }
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				control = new KeyEvent(window, 0, 0, 0, 0, KeyEvent.CHAR_UNDEFINED);
+			}
 		});
 	}
 	
@@ -85,7 +90,7 @@ public class SwingTemplate {
 		long StartTime = System.currentTimeMillis();
 		
 		update();
-		control = new KeyEvent(window, 0, 0, 0, 0, KeyEvent.CHAR_UNDEFINED);
+		//control = new KeyEvent(window, 0, 0, 0, 0, KeyEvent.CHAR_UNDEFINED);
 		
 		window.getContentPane().repaint();
 		frameTime = (int)(System.currentTimeMillis() - StartTime);

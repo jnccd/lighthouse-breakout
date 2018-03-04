@@ -40,6 +40,27 @@ public class Extensions {
 		
 		return new Color(red, green, blue, alpha);
 	}
+	public static Color Mult(Color c1, float f)
+	{
+		if (c1 == null)
+			throw new NullPointerException();
+		
+		int red = (int)(c1.getRed() * f);
+		int green = (int)(c1.getGreen() * f);
+		int blue = (int)(c1.getBlue() * f);
+		int alpha = (int)(c1.getAlpha() * f);
+		
+		if (red > 255)
+			red = 255;
+		if (green > 255)
+			green = 255;
+		if (blue > 255)
+			blue = 255;
+		if (alpha > 255)
+			alpha = 255;
+		
+		return new Color(red, green, blue, alpha);
+	}
 	public static Color Average(Color[] c)
 	{
 		int r = 0, g = 0, b = 0, a = 0;

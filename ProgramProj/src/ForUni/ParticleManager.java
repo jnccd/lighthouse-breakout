@@ -34,7 +34,7 @@ public class ParticleManager {
 		for (int x = 0; x < w; x++)
 			for (int y = 0; y < h; y++)
 				particles.add((new Particle(new Vector2(b.x * superSamplingMult + x, b.y * superSamplingMult + y),  
-						new Vector2(x - w / 2f, (y - h / 4f) * 1.5f).Divide(Extensions.rdm.nextFloat() * 5 + 2), 
+						new Vector2(x - w / 2f, (y - h / 4f) * 1.5f).Divide(Extensions.rdm.nextFloat() * 15 + 3f), 
 						fakePicture[x / superSamplingMult][y / superSamplingMult], this, 
 						superPicture.length, superPicture[0].length, 80, 
 						new Vector2(b.x * superSamplingMult + w / 2f, b.y * superSamplingMult + h / 2f))));
@@ -73,7 +73,7 @@ public class ParticleManager {
 						d[x + y * superSamplingMult] = superPicture[x + i * superSamplingMult][y + j * superSamplingMult];
 				
 				Color avg = Extensions.Average(d);
-				
+				avg = Extensions.Mult(avg, 2f);
 				c[i][j] = Extensions.Add(c[i][j], avg);
 			}
 	}

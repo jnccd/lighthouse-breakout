@@ -18,7 +18,7 @@ public class Brick {
 	
 	private int hp;
 	private int hitCooldown = 0;
-	boolean spwansBall;
+	public boolean spwansBall;
 	
 	public Brick(int x, int y, int startingHP, Breakout parent, boolean spwansBall)
 	{
@@ -55,7 +55,7 @@ public class Brick {
 	}
 	public static boolean colorToBrickBallSpawn(Color c)
 	{
-		return c.getAlpha() < 200;
+		return c.getAlpha() < 255;
 	}
 	public void updateColor(boolean immediate)
 	{
@@ -106,13 +106,14 @@ public class Brick {
 				parent.m.particles.turnToParticles(this, theBallResponsibleForThisHorrificDestruction);
 				
 				if (spwansBall)
-					parent.m.bAALLLLZ.add((new Ball(new Vector2(x + width / 2, y + 1.5f), new Vector2 (0, 0.33f), 1, Color.YELLOW, parent)));
+					parent.m.bAALLLLZ.add((new Ball(new Vector2(x + width / 2, y + 1.5f), 
+							new Vector2 (0, parent.m.ballStartSpeed), 1, Color.YELLOW, parent)));
 				
 				if (parent.m.bricks.size() == 1) // this actually gets deleted from the list after the method call
 					parent.m.gameWon();
 			}
 			
-			hitCooldown = 10;
+			hitCooldown = 2;
 		}
 	}
 	public Color getColor()
