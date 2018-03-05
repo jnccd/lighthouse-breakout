@@ -146,6 +146,9 @@ public class Brick {
 					if (i == 0 || i == width - 1)
 						Picture[x + i][y] = Extensions.lerp(Col, Color.BLACK, 0.4f);
 					else
-						Picture[x + i][y] = Extensions.lerp(Col, Color.YELLOW, 0.65f);
+						if (hp == 1)
+							Picture[x + i][y] = Extensions.lerp(Col, Color.YELLOW, 0.8f);
+						else
+							Picture[x + i][y] = Extensions.lerp(Col, Color.YELLOW, 0.65f);
 	}
 }

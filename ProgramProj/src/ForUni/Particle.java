@@ -37,7 +37,7 @@ public class Particle {
 		//vel = vel.Add(new Vector2(toOrigin.Y, -toOrigin.X / 2).Divide(50 * toOrigin.LengthSquared()));
 		vel.Y += 0.01f;
 		
-		vel = vel.Multiply(0.999f);
+		vel = vel.Multiply(0.993f);
 		pos = pos.Add(vel);
 		
 		if (lifeTimer > lifeTime)
@@ -47,6 +47,6 @@ public class Particle {
 	void draw(Color[][] Picture)
 	{
 		if ((int)pos.X > 0 && (int)pos.X < Picture.length && (int)pos.Y > 0 && (int)pos.Y < Picture[0].length)
-			Picture[(int)pos.X][(int)pos.Y] = Extensions.lerp(col, Color.BLACK, lifeTimer / (float)lifeTime + 0.2f);
+			Picture[(int)pos.X][(int)pos.Y] = Extensions.lerp(col, Color.BLACK, lifeTimer / (float)lifeTime);
 	}
 }
