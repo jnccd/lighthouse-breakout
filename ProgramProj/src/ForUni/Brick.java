@@ -106,7 +106,7 @@ public class Brick {
 				parent.m.particles.turnToParticles(this, theBallResponsibleForThisHorrificDestruction);
 				
 				if (spwansBall)
-					parent.m.bAALLLLZ.add((new Ball(new Vector2(x + width / 2, y + 1.5f), 
+					parent.m.bAALLLLZ.add((new Ball(new Vector2(x + width / 2, y + 0.5f), 
 							new Vector2 (0, parent.m.ballStartSpeed), 1, Color.YELLOW, parent)));
 				
 				if (parent.m.bricks.size() == 1) // this actually gets deleted from the list after the method call
