@@ -18,7 +18,7 @@ public class Model {
 	float paddlX = 0.3f;
 	final int paddlY = Breakout.housePixelsY - 2;
 	Color paddlColor = Color.RED;
-	final int paddlWidth = 6;
+	final int paddlWidth = 7;
 	final float paddlExtraHitbox = 0.25f;
 
 	private int levelState = 1;
