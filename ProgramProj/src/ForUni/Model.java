@@ -23,6 +23,8 @@ public class Model {
 
 	private int levelState = 1;
 	private final int levelStates;
+	
+	final int particleSystemResolution = 3;
 
 	private int gameTime = 0;
 	private int gameOverTime = 0;
@@ -76,7 +78,7 @@ public class Model {
 		}
 		System.out.println("Levels loaded from files: " + String.valueOf(lvl.size()));
 		
-		particles = new ParticleManager(parent.picture, 3);
+		particles = new ParticleManager(parent.picture, particleSystemResolution);
 		levelStates = lvl.size() + 1;
 	}
 	
