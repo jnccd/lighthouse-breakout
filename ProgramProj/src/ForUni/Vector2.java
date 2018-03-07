@@ -110,6 +110,7 @@ public class Vector2 {
 //		return D.Length();
 //	}
 	
+	
 	/**
 	 * Calculated the length of this Vector (from (0,0)).
 	 * @return the length of this Vector.
