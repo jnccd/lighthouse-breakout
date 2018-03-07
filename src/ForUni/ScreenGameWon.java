@@ -3,6 +3,9 @@ package ForUni;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+/**
+ * This class implements the "Game-Won" animation.
+ */
 public class ScreenGameWon {
 
 	private Color[][] picture;
@@ -16,6 +19,12 @@ public class ScreenGameWon {
 
 	private BufferedImage game_won;
 
+	/**
+	 * Constructs a new Instance of this class with given parameters.
+	 * @param startpic The displays current picture
+	 * @param totalFrames total amount of frames in which the animation is shown
+	 * @param game_won the "game_won" image
+	 */
 	public ScreenGameWon(Color[][] startpic, int totalFrames, BufferedImage game_won) {
 		this.picture = startpic;
 		this.framesPerScreenStage = totalFrames / stagesPerScreen;
@@ -27,6 +36,11 @@ public class ScreenGameWon {
 		c2 = Color.BLUE;
 	}
 	
+	/**
+	 * Returns the screen to be displayed at the given time.
+	 * @param gameWonTime the time since the game has been won
+	 * @return the screen to be displayed
+	 */
 	public Color[][] getScreen(int gameWonTime) {
 		if (gameWonTime > stageCount * framesPerScreenStage) {
 			nextScreen();
@@ -37,6 +51,10 @@ public class ScreenGameWon {
 		}
 	}
 
+	/**
+	 * The main animation is created here.
+	 * Depending on the stageCount, a different change to the screen is made.
+	 */
 	private void nextScreen() {
 		if (stageCount < 15) {
 			Color c;

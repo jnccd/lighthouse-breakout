@@ -3,6 +3,9 @@ package ForUni;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+/**
+ * This class implements the "Game-Over" animation.
+ */
 public class ScreenGameOver {
 
 	private Color[][] picture;
@@ -13,6 +16,12 @@ public class ScreenGameOver {
 
 	private BufferedImage game_over;
 
+	/**
+	 * Constructs a new Instance of this class with given parameters.
+	 * @param startpic The displays current picture
+	 * @param totalFrames total amount of frames in which the animation is shown
+	 * @param game_over the "game_over" image
+	 */
 	public ScreenGameOver(Color[][] startpic, int totalFrames, BufferedImage game_over) {
 		this.picture = startpic;
 		this.framesPerScreenStage = totalFrames / stagesPerScreen;
@@ -21,8 +30,13 @@ public class ScreenGameOver {
 		stage2Count = 0;
 	}
 	
-	public Color[][] getScreen(int gameWonTime) {
-		if (gameWonTime > stageCount * framesPerScreenStage) {
+	/**
+	 * Returns the screen to be displayed at the given time.
+	 * @param gameOverTime the time since the game has been lost
+	 * @return the screen to be displayed
+	 */
+	public Color[][] getScreen(int gameOverTime) {
+		if (gameOverTime > stageCount * framesPerScreenStage) {
 			nextScreen();
 			stageCount++;
 			return picture;
@@ -31,6 +45,10 @@ public class ScreenGameOver {
 		}
 	}
 	
+	/**
+	 * The main animation is created here.
+	 * Depending on the stageCount, a different change to the screen is made.
+	 */
 	private void nextScreen() {
 		for (int y = 0; y < Breakout.housePixelsY; y++) {
 			if (stageCount < Breakout.housePixelsX) {
