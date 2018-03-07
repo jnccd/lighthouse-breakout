@@ -25,11 +25,11 @@ public class ParticleManager {
 	public void turnToParticles(Brick b, Ball ba)
 	{
 		Brick clone = new Brick(0, 0, b.getHP() + 1, null, b.spwansBall);
-		Color[][] fakePicture = new Color[b.width][b.height];
+		Color[][] fakePicture = new Color[Brick.width][Brick.height];
 		clone.draw(fakePicture);
 		
-		int w = b.width * superSamplingMult;
-		int h = b.height * superSamplingMult;
+		int w = Brick.width * superSamplingMult;
+		int h = Brick.height * superSamplingMult;
 		
 		for (int x = 0; x < w; x++)
 			for (int y = 0; y < h; y++)

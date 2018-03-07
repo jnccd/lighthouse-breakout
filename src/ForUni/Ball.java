@@ -1,6 +1,6 @@
 package ForUni;
+
 import java.awt.Color;
-import java.util.ArrayList;
 
 public class Ball {
 	Breakout parent;
@@ -86,7 +86,7 @@ public class Ball {
 	}
 	Vector2 getActualVel()
 	{
-		float heightMultiplier = ((parent.housePixelsY - pos.Y) / parent.housePixelsY) / 2 + 0.75f;
+		float heightMultiplier = ((Breakout.housePixelsY - pos.Y) / Breakout.housePixelsY) / 2 + 0.75f;
 		return vel.Multiply(parent.m.ballSpeedMult * heightMultiplier);
 	}
 	public float getXPos()
