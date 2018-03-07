@@ -51,4 +51,5 @@ public class Breakout extends SwingTemplate {
 			for (View v : views)
 				v.draw(g, picture, pixelSizeX, pixelSizeY);
 	}
+
 }
