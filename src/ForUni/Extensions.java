@@ -3,12 +3,27 @@ package ForUni;
 import java.awt.Color;
 import java.util.Random;
 
+/**
+ * An Extension-class that implements multiple Methods that don't fit into the other classes.
+ */
 public class Extensions {
+	
 	public static Random rdm = new Random();
 	public static final float floatPI = (float)Math.PI;
 	
+	/**
+	 * Returns a Color that is a mixture between c1 and c2, with a being the percentage of c2.
+	 * @param c1 color 1
+	 * @param c2 color 2
+	 * @param a percentage of c2
+	 * @return the mixed color
+	 */
 	public static Color lerp(Color c1, Color c2, float a)
 	{
+		
+		if (c1 == null || c2 == null)
+			throw new NullPointerException();
+		
 		if (a < 0)
 			a = 0;
 		
@@ -19,6 +34,13 @@ public class Extensions {
 		return new Color((int)(c1.getRed() * b + c2.getRed() * a), (int)(c1.getGreen() * b + c2.getGreen() * a), 
 				(int)(c1.getBlue() * b + c2.getBlue() * a), (int)(c1.getAlpha() * b + c2.getAlpha() * a));
 	}
+	
+	/**
+	 * Adds the RGB values of 2 given Colors to create a new one.
+	 * @param c1 color 1
+	 * @param c2 color 2
+	 * @return added color
+	 */
 	public static Color Add(Color c1, Color c2)
 	{
 		if (c1 == null || c2 == null)
@@ -40,6 +62,13 @@ public class Extensions {
 		
 		return new Color(red, green, blue, alpha);
 	}
+	
+	/**
+	 * Multiplies the given color with f.
+	 * @param c1 color 1
+	 * @param f value to multiply with
+	 * @return multiplied color
+	 */
 	public static Color Mult(Color c1, float f)
 	{
 		if (c1 == null)
@@ -61,6 +90,12 @@ public class Extensions {
 		
 		return new Color(red, green, blue, alpha);
 	}
+	
+	/**
+	 * Returns the average color of a given array of colors.
+	 * @param c the array of colors
+	 * @return the average color
+	 */
 	public static Color Average(Color[] c)
 	{
 		int r = 0, g = 0, b = 0, a = 0;
