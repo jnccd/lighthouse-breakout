@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
+/**
+ * This is the child of the swing template and actually implements the game
+ */
 public class Breakout extends SwingTemplate {
 	final static int pixelSizeX = 13;
 	final static int pixelSizeY = 40;
@@ -20,6 +23,10 @@ public class Breakout extends SwingTemplate {
 
 	GameState state;
 
+	/**
+	 * Prepares the control, model and view objects (which have no real purpose but were requested) 
+	 * as well as the picture array which will be our canvas
+	 */
 	public Breakout() {
 		super("Breakout", new Point(pixelSizeX * housePixelsX + 16, pixelSizeY * housePixelsY + 39), houseFramerate);
 
@@ -37,12 +44,18 @@ public class Breakout extends SwingTemplate {
 	}
 
 	@Override
+	/**
+	 * calls the control and models update methods
+	 */
 	public void update() {
 		c.Update();
 		m.Update();
 	}
 
 	@Override
+	/**
+	 * First the model draws itself to the picture array then all view objects within the view list get called to draw the picture array
+	 */
 	public void draw(Graphics g) {
 		if (m != null && state == GameState.Playing)
 			m.drawToPicture();
