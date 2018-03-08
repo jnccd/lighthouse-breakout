@@ -29,47 +29,47 @@ public class Vector2 {
 	 * @param V other Vector
 	 * @return result of subtracting the 2 Vectors
 	 */
-//	public Vector2 Subtract(Vector2 V) {
-//		return new Vector2(X - V.X, Y - V.Y);
-//	}
+	public Vector2 Subtract(Vector2 V) {
+		return new Vector2(X - V.X, Y - V.Y);
+	}
 	
 	/**
 	 * Multiplies another Vector to this one.
 	 * @param V other Vector
 	 * @return result of multiplying the 2 Vectors
 	 */
-//	public Vector2 Multiply(Vector2 V) {
-//		return new Vector2(X * V.X, Y * V.Y);
-//	}
+	public Vector2 Multiply(Vector2 V) {
+		return new Vector2(X * V.X, Y * V.Y);
+	}
 	
 	/**
 	 * Divides this Vector through another Vector.
 	 * @param V other Vector
 	 * @return result of dividing the 2 Vectors
 	 */
-//	public Vector2 Divide(Vector2 V) {
-//		return new Vector2(X / V.X, Y / V.Y);
-//	}
+	public Vector2 Divide(Vector2 V) {
+		return new Vector2(X / V.X, Y / V.Y);
+	}
 	
 	/**
 	 * Adds a given value a to both coordinates of the Vector.
 	 * @param a value to add to the vector
 	 * @return result of adding a to this vector
 	 */
-//	public Vector2 Add(float a)
-//	{
-//		return new Vector2(X + a, Y + a);
-//	}
+	public Vector2 Add(float a)
+	{
+		return new Vector2(X + a, Y + a);
+	}
 	
 	/**
 	 * Subtracts a given value a from both coordinates of the Vector.
 	 * @param a value to subtract from the vector
 	 * @return result of subtracting a from this vector
 	 */
-//	public Vector2 Subtract(float a)
-//	{
-//		return new Vector2(X - a, Y - a);
-//	}
+	public Vector2 Subtract(float a)
+	{
+		return new Vector2(X - a, Y - a);
+	}
 	
 	/**
 	 * Multiplies the Vector with given value a.
@@ -105,10 +105,10 @@ public class Vector2 {
 	 * @param V the other Vector
 	 * @return the distance to the other vector
 	 */
-//	public float DistanceTo(Vector2 V) {
-//		Vector2 D = new Vector2(V.X - X, V.Y - Y);
-//		return D.Length();
-//	}
+	public float DistanceTo(Vector2 V) {
+		Vector2 D = new Vector2(V.X - X, V.Y - Y);
+		return D.Length();
+	}
 	
 	/**
 	 * Calculated the length of this Vector (from (0,0)).
@@ -117,10 +117,10 @@ public class Vector2 {
 	public float Length() {
 		return (float) Math.sqrt(X * X + Y * Y);
 	}
-//	
-//	public float LengthSquared() {
-//		return X * X + Y * Y;
-//	}
+	
+	public float LengthSquared() {
+		return X * X + Y * Y;
+	}
 	
 	@Override
 	public String toString() {
