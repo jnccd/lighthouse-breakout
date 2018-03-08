@@ -126,6 +126,12 @@ public class SwingTemplate {
 	 * provides a canvas class for the window
 	 */
 	private class Canvas extends JComponent{
+		/**
+		 * This paints to the windows content pane and is called when the content panes repaint method is called.
+		 * 
+		 * It calls the overridable draw method and draws the framerate if drawFramerate is true
+		 * @param g the graphics to paint on
+		 */
 		public void paint(Graphics g){
 			
 			draw(g);
@@ -137,10 +143,17 @@ public class SwingTemplate {
 	}
 	
 	// Overridables
+	/**
+	 * the method in which the game logic will be computed
+	 */
 	public void update()
 	{
 		
 	}
+	/**
+	 * the method in which the game can draw to the swing window
+	 * @param g the graphics to paint on
+	 */
 	public void draw(Graphics g)
 	{
 		
