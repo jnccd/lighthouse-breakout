@@ -26,6 +26,12 @@ public class SwingTemplate {
 	protected boolean drawFramerate = true;
 	protected Color drawFramerateColor = Color.BLACK;
 	
+	/**
+	 * This will prepare the window as well as the keyhooks and event listeners for the window
+	 * @param Name The name for the window which will be displayed at its top right
+	 * @param WindowSize The size of the window in pixel
+	 * @param DesieredFramerate The framerate that the template will try to achieve in frames per second
+	 */
 	public SwingTemplate(String Name, Point WindowSize, int DesieredFramerate)
 	{
 		window = new JFrame(Name);
@@ -39,12 +45,22 @@ public class SwingTemplate {
 		window.setVisible(true);
 	}
 	
+	/**
+	 * This will start the game loop
+	 * all code after this method call will only ever be called when the game ends
+	 * @throws Exception game errors
+	 */
 	public void start() throws Exception
 	{
 		while (true)
 			pUpdate();
 	}
 	
+	/**
+	 * sets up the window and its key and mouse events
+	 * 
+	 * the result of the event will be stored inside values waiting for the game loop to use them
+	 */
 	private void setup()
 	{
 		window.setSize(windowSize.x, windowSize.y);
@@ -85,6 +101,14 @@ public class SwingTemplate {
 		});
 	}
 	
+	/**
+	 * the private update
+	 * 
+	 * calls the overridable update method and tries the keep the framerate stable at the "desieredFramerate"
+	 * It also calls repaint on the windows content pane so the "Canvas.paint" method will be called and the updated data be drawn
+	 * 
+	 * @throws Exception game loop errors
+	 */
 	private void pUpdate() throws Exception
 	{
 		long StartTime = System.currentTimeMillis();
@@ -98,6 +122,9 @@ public class SwingTemplate {
 	    Thread.sleep((long)sleepTime);
 	}
 	
+	/**
+	 * provides a canvas class for the window
+	 */
 	private class Canvas extends JComponent{
 		public void paint(Graphics g){
 			
