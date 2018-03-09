@@ -40,7 +40,8 @@ public class Breakout extends SwingTemplate {
 		state = GameState.Playing;
 		
 		views.add(new ViewLocal());
-		views.add(new ViewLightHouse("FynnNiklas", "API-TOK_//Mz-oSR5-gQn9-upe9-zU0+"));
+		// api-token has to be updated from time to time
+		views.add(new ViewLightHouse("FynnNiklas", "API-TOK_KKOM-9kbd-Bo34-T9Fx-qFnT"));
 	}
 
 	@Override

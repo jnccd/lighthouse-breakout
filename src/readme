@@ -1,0 +1,51 @@
+Program description:
+
+We started with implementing the SwingTemplate as a base for our game, 
+which includes all needed listeners (later used by the control). 
+Our main Breakout class derives from that Template, and has references to
+the Model, the different Views and the Controller.
+
+The Model computes all the game logic (including balls, bricks and the particles)
+and creates the Picture that should be displayed by each View in Breakout.
+
+Each View displays that 2 dimensional Color array, Picture, in its own way.
+ViewLocal draws the picture using the default swing graphics object and
+ViewLightHouse draws the array to the light house using the given LighthouseDisplay class.
+
+The Controller uses the Mouse-coordinates (and KeyInputs) to compute the Paddles
+position.
+
+Of course the entire project in differentiable into model, view and controller, not just the classes
+named after the parts of the pattern. 
+For example in the SwingTemplate the events we hook to are
+actually part of the Controller but those were also part of the swing wrapper so pulling those out would
+not be very fitting to the purpose of that class. The while loop of that class would be model, as well as
+the measurement of the computation time, the sleep accordingly to achieve a consistent framerate and the
+calling of repaint on the canvas to invoke the paint method which in the more abstract classes will be
+used for drawing the view.
+Other classes which belong fully to the model are ball, brick, particle, particle manager, screengameover,
+screengamewon and vector2. It should be obvious why but (I need to hit 50 lines) those represent 
+the underlying data structure which prepares the data, which is in our case just the 2 dimensional 
+picture color array.
+Classes that belong fully to view are ViewLocal, ViewLighthouse and LighthouseDisplay because their only
+use is to either send data to the server, prepare the data for sending, or use the default swing graphics
+object.
+
+All Methods that are required by other classes are public or protected, ones only used within
+that same class are private.
+
+
+We use static variables (class variables) for things that don't change, like the houses width
+and height in the Breakout class. The variables in the Extensions class are static because you only 
+need those once in your project like Random or PI.
+Extensions also contains many methods which are not bound to a specific class instance, mostly to deal
+with colors because those don't have many methods in Java. :c
+
+Lerp for example was really useful for animations and setting the pixels brightness in a area
+when the particle or the paddl was there just to some percentage.
+
+
+We use instance variables basically in any other case. For example in Ball, or Particle, or Brick because
+each instance has its own Position, Balls and Particles have each their own velocity, etc.
+
+(((Psst: If you are too bad to win the game yourself you can also hold c to use the cheat mode)))
