@@ -7,6 +7,9 @@ import java.util.Comparator;
 
 import javax.imageio.ImageIO;
 
+/**
+ * The main model of the game, it all comes together here.
+ */
 public class Model {
 	Breakout parent;
 
@@ -42,11 +45,16 @@ public class Model {
 	
 	public ParticleManager particles;
 	
+	/**
+	 * The model of the game.
+	 * @param parent parent game
+	 */
 	public Model(Breakout parent) {
 		gameOverAnimationTime = (int) (parent.desieredFramerate * 3);
 		gameWonAnimationTime = (int) (parent.desieredFramerate * 4);
 		this.parent = parent;
 		
+		// load all images (gamescreens)
 		try {
 			game_over = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gameover.bmp"));
 			game_won = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gamewon.bmp"));
@@ -54,6 +62,7 @@ public class Model {
 			System.out.println("Levels loaded from files: " + String.valueOf(lvl.size()));
 		}
 		
+		// load images (levels)
 		int index = 1;
 		while (true)
 		{
@@ -73,17 +82,25 @@ public class Model {
 		}
 		System.out.println("Levels loaded from files: " + String.valueOf(lvl.size()));
 		
+		// initialize particlemanager
 		particles = new ParticleManager(parent.picture, particleSystemResolution);
+		// total levelcount (+1, because one level is hardcoded)
 		levelStates = lvl.size() + 1;
 	}
 	
+	/**
+	 * Called everytime the game is updated.
+	 */
 	public void Update() {
+		//switching between gamestates
 		switch (parent.state) {
 		case Playing:
 			
+			//update all balls
 			for (int i = 0; i < bAALLLLZ.size(); i++)
 				bAALLLLZ.get(i).update();
 			
+			//remove hit bricks
 			parent.m.bricks.removeAll(removeList);
 			
 			gameTime++;
@@ -95,12 +112,15 @@ public class Model {
 
 		case Dead:
 			
-			if (gameOverTime == 0) {
+			if (gameOverTime == 0)
+				// initialize new gameoverscreen with the current picture
 				gameOverScreen = new ScreenGameOver(parent.picture, gameOverAnimationTime, game_over);
-			}
+			
+			// get picture that should be displayed
 			parent.picture = gameOverScreen.getScreen(gameOverTime);
 			gameOverTime++;
 			
+			// if animation time is over, restart the game
 			if (gameOverTime >= gameOverAnimationTime)
 				respawn();
 			
@@ -108,28 +128,37 @@ public class Model {
 			
 		case Won:
 			
-			if (gameWonTime == 0) {
+			if (gameWonTime == 0) 
+				// initialize new gamewonscreen with the current picture
 				winScreen = new ScreenGameWon(parent.picture, gameWonAnimationTime, game_won);
-			}
+			
+			// get picture that should be displayed
 			parent.picture = winScreen.getScreen(gameWonTime);
 			gameWonTime++;
 			
+			// if animation time is over, restart the game
 			if (gameWonTime >= gameWonAnimationTime)
 				respawn();
 			
 			break;
 		}
 	}
+	/**
+	 * Loads the next level.
+	 */
 	protected void loadNewLevel() {
 		gameOverTime = 0;
 		gameWonTime = 0;
+		// add one ball in starting position
 		bAALLLLZ.clear();
 		bAALLLLZ.add(new Ball(new Vector2(Breakout.housePixelsX / 2, Breakout.housePixelsY - 2),
 				new Vector2(0, -ballStartSpeed), 1, Color.YELLOW, parent));
 		
+		// build the level
 		bricks.clear();
 		if (levelState == 0)
 		{
+			// hardcoded level
 			for (int x = 0; x < 7; x++)
 				for (int y = 0; y < 9; y++) {
 					boolean dropsBall = x == Breakout.housePixelsX / Brick.width / 2;
@@ -160,15 +189,17 @@ public class Model {
 						break;
 					}
 				}
-		}
+		} 
 		else
 		{
+			// build level based on image
 			Color c;
 			for (int x = 0; x < 7; x++)
 				for (int y = 0; y < 9; y++) {
 					c = new Color(lvl.get(levelState - 1).getRGB(x, y));
 					if (c.getRGB() != Color.WHITE.getRGB())
 					{
+						// manual transparency inplementation for ballspawns because java couldnt handle image-transparency
 						if (levelState == 1 && x == 6 && y == 5 || levelState == 1 && x == 1 && y == 7 || 
 								levelState == 2 && x == 2 && y == 3 || levelState == 2 && x == 3 && y == 3 || levelState == 2 && x == 4 && y == 3|| 
 								levelState == 3 && x == 2 && y == 3 || levelState == 3 && x == 4 && y == 3 ||
@@ -183,41 +214,62 @@ public class Model {
 				}
 		}
 		
+		// prepare for next loading
 		levelState++;
 		if (levelState >= levelStates)
 			levelState = 0;
 	}
+	/**
+	 * Returns the lowest ball on the canvas.
+	 * @return the lowest ball
+	 */
 	public Ball getLowestBall()
 	{
-		return bAALLLLZ.stream().min(Comparator.comparing(Ball::getYPos)).
+		return bAALLLLZ.stream().max(Comparator.comparing(Ball::getYPos)).
 				orElse(new Ball(new Vector2(1, 1), new Vector2(0, 0), 0, Color.WHITE, parent));
 	}
+	/**
+	 * called when game-over
+	 */
 	public void gameLost() {
 		gameTime = 0;
 		parent.state = GameState.Dead;
 	}
+	/**
+	 * called when game is won
+	 */
 	public void gameWon() {
 		gameTime = 0;
 		parent.state = GameState.Won;
-		drawToPicture();
 	}
+	/**
+	 * start new match (next level)
+	 */
 	public void respawn() {
 		particles.clear();
 		loadNewLevel();
 		parent.state = GameState.Playing;
 	}
 	
+	/**
+	 * Draws the complete canvas.
+	 */
 	public void drawToPicture() {
 		clearPicture();
 		
+		// lowest layer (least important) gets drawn first, then overridden if needed
+		// draw particles
 		particles.draw(parent.picture);
 		
+		// draw balls
 		for (int i = 0; i < bAALLLLZ.size(); i++)
 			bAALLLLZ.get(i).advancedDraw(parent.picture);
 		
+		// draw bricks
 		for (int i = 0; i < bricks.size(); i++)
 			bricks.get(i).draw(parent.picture);
 		
+		// draw paddle
 		drawPaddltoPicture();
 	}
 	private void clearPicture() {

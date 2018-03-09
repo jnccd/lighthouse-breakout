@@ -13,6 +13,7 @@ public class Extensions {
 	
 	/**
 	 * Returns a Color that is a mixture between c1 and c2, with a being the percentage of c2.
+	 * (per linear interpolation)
 	 * @param c1 color 1
 	 * @param c2 color 2
 	 * @param a percentage of c2
