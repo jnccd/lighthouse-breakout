@@ -2,6 +2,9 @@ package ForUni;
 
 import java.awt.Color;
 
+/**
+ * Implements the destroyable Bricks.
+ */
 public class Brick {
 	public int x;
 	public int y;
@@ -20,6 +23,14 @@ public class Brick {
 	private int hitCooldown = 0;
 	public boolean spwansBall;
 
+	/**
+	 * Creates a new Brick depending on:
+	 * @param x x-position of the brick
+	 * @param y y-position of the brick
+	 * @param startingHP starting hp of the brick
+	 * @param parent parent game
+	 * @param spwansBall does it spawn a ball on destruction
+	 */
 	public Brick(int x, int y, int startingHP, Breakout parent, boolean spwansBall) {
 		this.x = x;
 		this.y = y;
@@ -29,6 +40,11 @@ public class Brick {
 		updateColor(true);
 	}
 
+	/**
+	 * Converts a Color to the corresponding BrickHP.
+	 * @param c inputcolor
+	 * @return brickHP
+	 */
 	public static int colorToBrickHP(Color c) {
 		if (c.getRed() == 0 && c.getGreen() == 255 && c.getBlue() == 0) {
 			// Color.Green
@@ -47,13 +63,24 @@ public class Brick {
 		}
 	}
 
+	/**
+	 * If the Alpha of the color is not 255, the brick will spawn a ball
+	 * (if the color is slightly transparent)
+	 * @param c inputcolor
+	 * @return true of it will spawn a ball, false if not
+	 */
 	public static boolean colorToBrickBallSpawn(Color c) {
 		return c.getAlpha() < 255;
 	}
 
+	/**
+	 * Updates the color of the brick
+	 * @param immediate if true, color change is instant (without animation)
+	 */
 	public void updateColor(boolean immediate) {
 		colorChangeTimer = 0;
 
+		// Colors of the corresponding hp
 		switch (hp) {
 		case 1:
 			TargetCol = Color.GREEN;
@@ -82,10 +109,18 @@ public class Brick {
 			startCol = Col;
 	}
 
+	/**
+	 * Can the brick get hit?
+	 * @return can the brick get hit?
+	 */
 	public boolean canBeHit() {
 		return hitCooldown < 0;
 	}
 
+	/**
+	 * Called when the brick gets hit.
+	 * @param theBallResponsibleForThisHorrificDestruction ball that hits the brick
+	 */
 	public void onDestruction(Ball theBallResponsibleForThisHorrificDestruction) {
 		if (canBeHit()) {
 			hp--;
@@ -107,23 +142,37 @@ public class Brick {
 		}
 	}
 
+	/**
+	 * Get current brickcolor
+	 * @return current brickcolor
+	 */
 	public Color getColor() {
 		return Col;
 	}
 
+	/**
+	 * Get current brickHP
+	 * @return current brickHP
+	 */
 	public int getHP() {
 		return hp;
 	}
 
+	/**
+	 * Draws the brick to the given canvas.
+	 * @param Picture canvas (gamescreen)
+	 */
 	public void draw(Color[][] Picture) {
 		hitCooldown--;
 		colorChangeTimer++;
 
+		// update coloranimation
 		if (colorChangeTimer < colorChangeTime)
 			Col = Extensions.lerp(startCol, TargetCol, colorChangeTimer / (float) colorChangeTime);
 		else
 			Col = TargetCol;
 
+		// draws to the canvas
 		for (int i = 0; i < width; i++)
 			if (x + i >= 0 && x + i < Picture.length && y >= 0 && y < Picture[0].length)
 				if (!spwansBall)

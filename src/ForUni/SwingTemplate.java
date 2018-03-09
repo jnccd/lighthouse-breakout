@@ -10,6 +10,9 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+/**
+ * Implements Listeners and provides the general Layout of the window.
+ */
 public class SwingTemplate {
 	private JFrame window = null;
 	protected final Point windowSize;
@@ -65,28 +68,28 @@ public class SwingTemplate {
 	{
 		window.setSize(windowSize.x, windowSize.y);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		window.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mousePressed(MouseEvent e) {
-//            	//System.out.println("Mouse was pressed!");
-//            	mousePos = new Vector2((float)e.getX() + mouseOffsetX, (float)e.getY() + mouseOffsetY);
-//            	mouseDown = true;
-//            }
-//            @Override
-//            public void mouseReleased(MouseEvent e) {
-//            	//System.out.println("Mouse was released!");
-//            	mousePos = new Vector2((float)e.getX() + mouseOffsetX, (float)e.getY() + mouseOffsetY);
-//            	mouseDown = false;
-//            }
-//        });
+		window.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+            	//System.out.println("Mouse was pressed!");
+            	mousePos = new Vector2((float)e.getX() + mouseOffsetX, (float)e.getY() + mouseOffsetY);
+            	mouseDown = true;
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            	//System.out.println("Mouse was released!");
+            	mousePos = new Vector2((float)e.getX() + mouseOffsetX, (float)e.getY() + mouseOffsetY);
+            	mouseDown = false;
+            }
+        });
 		window.addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseMoved(MouseEvent e) {
 				mousePos = new Vector2((float)e.getX() + mouseOffsetX, (float)e.getY() + mouseOffsetY);
 			}
 
-//			public void mouseDragged(MouseEvent e) {
-//				mousePos = new Vector2((float)e.getX() + mouseOffsetX, (float)e.getY() + mouseOffsetY);
-//			}
+			public void mouseDragged(MouseEvent e) {
+				mousePos = new Vector2((float)e.getX() + mouseOffsetX, (float)e.getY() + mouseOffsetY);
+			}
 		});
 		window.addKeyListener(new KeyAdapter() {
 			@Override

@@ -75,7 +75,7 @@ public class ParticleManager {
 						d[x + y * superSamplingMult] = superPicture[x + i * superSamplingMult][y + j * superSamplingMult];
 				
 				Color avg = Extensions.Average(d);
-				avg = Extensions.Mult(avg, superSamplingMult);
+				avg = Extensions.Mult(avg, superSamplingMult / 2);
 				c[i][j] = Extensions.Add(c[i][j], avg);
 			}
 	}
