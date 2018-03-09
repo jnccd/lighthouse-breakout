@@ -271,12 +271,19 @@ public class Model {
 		
 		// draw paddle
 		drawPaddltoPicture();
+		// highest layer (most important) gets drawn last, not overridden
 	}
+	/**
+	 * clear canvas to black
+	 */
 	private void clearPicture() {
 		for (int x = 0; x < Breakout.housePixelsX; x++)
 			for (int y = 0; y < Breakout.housePixelsY; y++)
 				parent.picture[x][y] = Color.BLACK;
 	}
+	/**
+	 * draws the paddl antialiased to the canvas
+	 */
 	private void drawPaddltoPicture() {
 		float RightPercentage = paddlX % 1;
 		float LeftPercentage = 1 - RightPercentage;

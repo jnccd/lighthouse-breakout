@@ -154,7 +154,7 @@ public class Ball {
 	}
 	/**
 	 * Better version of the draw-method
-	 * The Ball is simplified to a rectangle, this draws all pixels in which the ball exists depending on the overlapping percentage
+	 * The Ball is simplified to a rectangle, this draws all pixels in which the ball exists depending on the overlapping percentage (antialiasing)
 	 * @param Picture canvas (gamescreen)
 	 */
 	void advancedDraw(Color[][] Picture)
